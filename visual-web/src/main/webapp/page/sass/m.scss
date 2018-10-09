@@ -1,0 +1,280 @@
+
+html {
+  height: 100%;
+}
+
+body {
+  font-family:"Hiragino Sans GB W3","Microsoft YaHei UI",sans-serif;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+  text-shadow: none !important;
+  background-color: #081734 !important;
+  .hide{
+    //visibility: hidden;
+    display:none;
+  }
+}
+
+
+
+//地图容器
+#map-container {
+  position: relative;
+  background-color: #044062;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0;
+  border:0;
+
+  .cluster-tip {
+    font-size: 10px;
+    position: absolute;
+    padding: 5px;
+    z-index: 100000;
+    opacity: 0.8;
+  }
+  .cluster-content {
+    background-color: #000;
+    color: #FFF;
+    max-width: 200px;
+    padding: 5px 8px 4px 8px;
+    text-align: center;
+    border-radius: 3px;
+  }
+}
+
+//区域选择面板
+#region-panel{
+  //opacity: 0.8;
+  position: absolute;
+  top: 50px;
+  left: 370px;
+  z-index: 1999;
+  background: #fff;
+  max-height:400px;
+  max-width: 350px;
+  min-width: 250px;
+  //height: 400px;
+  //width:350px;
+  height: 400px;
+  //width:250px;
+
+
+
+  border:1px solid cadetblue;
+
+  .ui.tab{
+    padding-left:10px;
+    opacity:0.8;
+  }
+
+
+  #regionset-go-list{
+    a{
+      cursor:pointer;
+    }
+  }
+}
+
+#alertBox{
+  position: absolute;
+  top: 80%;
+  margin-left: 45%;
+  z-index: 9999;
+}
+
+#toolbar{
+  opacity:0.4;
+   border:0;
+   .item{
+     padding:5px;
+     i{
+       margin:0;
+     }
+   }
+}
+
+//#fix-logo{
+//  opacity:0.8;
+//  margin:10px 0 0 10px;
+//  background-color:#081734;
+//  display: none;
+//  img.logo{
+//    opacity: 1;
+//    height: 60px;padding:5px
+//  }
+//}
+
+//左侧工具栏
+#v-toolbar{
+  position: absolute;
+  top:100px;
+  left:18px;
+  z-index:1887;
+
+  .item.t{
+    min-width:20px;
+    width:40px !important;
+    padding:5px;
+  }
+
+}
+
+//右侧面板
+#gc-panel{
+  position: absolute;
+  top:18px;
+  right:18px;
+  height: 85%;
+  width:40%;
+  max-width: 300px;
+  background-color: whitesmoke;
+  opacity:0.9;
+  z-index: 1888;
+}
+
+#chart-panel{
+  select{
+    width:80%;
+  }
+}
+
+//指标栏
+#indi-panel{
+  position: absolute;
+  top:60px;
+  left:0;
+  height: 85%;
+  width:70%;
+  max-width: 400px;
+  background-color: whitesmoke;
+  opacity:0.9;
+  z-index: 1899;
+
+  padding:5px 0 5px 0;
+
+  .ui.text.menu{
+    .item.link{
+      padding:3px;
+      i{
+        margin:0;
+      }
+    }
+  }
+
+  #iden-idens {
+
+    #report {
+
+      #switcher-report {
+        width: 50px;
+        a.item {
+          padding: 10px;
+          widht: 100%
+        }
+        a.item.active {
+          color: #1e70bf !important;
+          font-weight: 700;
+          background-color: #fff;
+        }
+      }
+    }
+
+    #sel-panel{
+      margin-left:10px;
+    }
+
+  }
+}
+
+
+
+//指标选择容器
+//.idens.container{
+//
+//  .item.link{
+//    padding:5px 5px 5px 5px !important;
+//    i.icon{
+//      margin:0;
+//    }
+//  }
+//
+//  #iden-idens{
+//    margin:0;
+//    padding:0;
+//    #report{
+//      width: 50px;
+//      #switcher-report{
+//        width: 50px;
+//        margin-left: 2px;
+//        a.item{
+//          padding:10px;
+//        }
+//        a.item.active{
+//          color:#1e70bf !important;
+//          font-weight: 700;
+//          background-color: #fff;
+//        }
+//      }
+//    }
+//  }
+//}
+
+
+.legend-container {
+  z-index: 1999; }
+
+.tl {
+  text-shadow:none !important;
+  z-index: 1000; }
+
+
+
+
+
+
+
+// semantic样式调整
+
+.ui.message {
+  border-radius: 0;
+  margin-bottom: 0;
+  box-shadow: 0 0 0 0 rgba(34,36,38,.22) inset,0 0 0 0 transparent;
+}
+
+.clearfix:before,
+.clearfix:after {
+  display: table;
+  content: " ";
+}
+.clearfix:after {
+  clear: both;
+}
+.pull-right {
+  float: right !important;
+}
+.pull-left {
+  float: left !important;
+}
+
+.ui.list a.item i.icon{
+  float:left;
+  margin-right: 1rem;
+}
+
+
+i.icon.hides:before {
+  content: "\f070" !important;
+}
+
+//.ui.popup{
+//  z-index: 9999999 !important;
+//}
+
+.ui.dimmer.visible.active{
+  z-index: 2000 !important;
+}
+

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+
+   <persistence-unit name="permissionPersistenceUnit" transaction-type="RESOURCE_LOCAL">
+       <provider>org.hibernate.ejb.HibernatePersistence</provider>
+
+       <!-- oracle -->
+       <properties>
+           <property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect"/>
+           <property name="hibernate.connection.driver_class" value="oracle.jdbc.OracleDriver"/>
+           <property name="hibernate.connection.url" value="jdbc:oracle:thin:@//121.42.160.106:1521/ORCL"/>
+           <property name="hibernate.connection.username" value="visual"/>
+           <property name="hibernate.connection.password" value="visual"/>
+           <!--set default_schema，匹配entity-->
+           <property name="hibernate.default_schema" value="${hibernate.default_schema}"/>
+           <property name="hibernate.archive.autodetection" value="class"/>
+           <property name="hibernate.show_sql" value="false"/>
+           <property name="hibernate.format_sql" value="true"/>
+           <property name="hbm2ddl.auto" value="update"/>
+       </properties>
+
+       <!--sqlite -->
+       <!--<properties>-->
+           <!--<property name="hibernate.dialect" value="com.applerao.hibernatesqlite.dialect.SQLiteDialect" />-->
+           <!--<property name="hibernate.connection.driver_class" value="org.sqlite.JDBC" />-->
+           <!--<property name="hibernate.connection.url" value="jdbc:sqlite://E:/ideaProject/visual.db"/>   &lt;!&ndash;.db文件的绝对路径 &ndash;&gt;-->
+           <!--<property name="hibernate.connection.username" value=""/>-->
+           <!--<property name="hibernate.connection.password" value=""/>-->
+           <!--<property name="hibernate.archive.autodetection" value="class"/>-->
+           <!--<property name="hibernate.show_sql" value="false"/>-->
+           <!--<property name="hibernate.format_sql" value="true"/>-->
+           <!--<property name="hbm2ddl.auto" value="update"/>-->
+       <!--</properties>-->
+
+   </persistence-unit>
+</persistence>

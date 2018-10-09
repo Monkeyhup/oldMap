@@ -1,0 +1,226 @@
+{
+    "segmentThemantic": {
+        "colors": {
+            "data": ["rgb(172, 203, 224)", "rgb(127, 170, 205)", "rgb(93, 144, 191)", "rgb(42, 106, 170)", "rgb(8,82,157)"],
+            "type": "seq",
+            "num": 5,
+            "name": "Reds"
+        },
+        "segmentMethod": 0,
+        "style": {
+            "stroke":true,
+            "strokeColor": "#FFF",
+            "strokeOpacity": 1,
+            "fillOpacity": 1,
+            "strokeWidth":1,
+            "pointRadius":1
+        },
+        "emptyStyle": {
+            "strokeColor": "#FFF",
+            "strokeOpacity": 1,
+            "fillOpacity": 0,
+            "fillColor": "#FFF"
+        },
+        "selectStyle": {
+            "strokeColor": "#f1c40f",
+            "strokeWidth": 2,
+            "fillOpacity": 0.7,
+            "graphZIndex": 1
+        }
+    },
+    "pieThemantic": {
+        "radius": [
+            {
+                "level": 2,
+                "maxpiex": 5,
+                "minpiex": 40
+            },
+            {
+                "level": 3,
+                "maxpiex": 4,
+                "minpiex": 30
+            },
+            {
+                "level": 4,
+                "maxpiex": 3,
+                "minpiex": 20
+            }
+        ],
+        "pieColors": ["#e67e22", "#d35400"]
+    },
+    "comparison":{
+        "settingForBar": {
+            "width": 5,
+            "height": 100,
+            "XOffset":10,
+            "YOffset":-40,
+            "codomain": [0, 1000],
+            "dataStyle": {
+                "fillOpacity": 0.9
+            },
+            "dataStyleByFields": [
+                {
+                    "fillColor": "#F0507C",
+                    "labelPosition":"top"
+                },{
+                    "fillColor": "#EAC052",
+                    "labelPosition":"top"
+                },{
+                    "fillColor": "#69C45D",
+                    "labelPosition":"top"
+                },{
+                    "fillColor": "#9C6C44",
+                    "labelPosition":"top"
+                },{
+                    "fillColor": "#EAC052",
+                    "labelPosition":"top"
+                }
+            ],
+            "dataHoverStyle": {
+                "fillOpacity": 1
+            },
+            "useAxis": false,
+            "axisXBlank": [0,0,0],
+            "axisStyle": {
+                "strokeColor": "#008ACD"
+            },
+            "axisYTick": 2,
+            "axisYLabels": [],
+            "axisYLabelsStyle": {
+                "fillColor": "#008ACD"
+            },
+            "axisXLabels": [],
+            "axisXLabelsStyle": {
+                "fillColor": "#008ACD"
+            },
+            "useBackground": false,
+            "backgroundStyle": {
+                "fillColor": "#F3F3F3",
+                "fillOpacity": 0.3
+            },
+            "backgroundRadius": [5,5,5,5]
+        },
+        "settingForLine": {
+            "width": 180,
+            "height": 100,
+            "XOffset":5,
+            "YOffset":-20,
+            "codomain": [0,1000],
+            "dataStyle": {
+                "strokeWidth": 2,
+                "fillColor": "#008ACD"
+            },
+            "dataStyleByFields": [
+                {
+                    "pointRadius": 3,
+                    "stroke": true,
+                    "strokeColor": "#FFB980",
+                    "fillColor": "#FFB980",
+                    "fillOpacity": 1,
+                    "labelPosition":"top"
+                },
+                {
+                    "pointRadius": 3,
+                    "stroke": true,
+                    "strokeColor": "#5AB1EF",
+                    "fillColor": "#5AB1EF",
+                    "fillOpacity": 3,
+                    "labelPosition":"top"
+                },
+                {
+                    "pointRadius": 3,
+                    "stroke": true,
+                    "strokeColor": "#B6A2DE",
+                    "fillColor": "#B6A2DE",
+                    "fillOpacity": 1,
+                    "labelPosition":"top"
+                },
+                {
+                    "pointRadius": 3,
+                    "stroke": true,
+                    "strokeColor": "#2EC7C9",
+                    "fillColor": "#2EC7C9",
+                    "fillOpacity": 1,
+                    "labelPosition":"top"
+                },
+                {
+                    "pointRadius": 3,
+                    "stroke": true,
+                    "strokeColor": "#D87A80",
+                    "fillColor": "#D87A80",
+                    "fillOpacity": 1,
+                    "labelPosition":"top"
+                }
+            ],
+            "dataHoverStyle": {
+                "stroke": true,
+                "strokeColor": "#1DAB43",
+                "pointRadius": 4,
+                "strokeWidth": 1,
+                "fillColor": "#FF0000",
+                "fillOpacity": 1
+            },
+            "useAxis": false,
+            "axisXBlank": [5,10,10],
+            "axisStyle": {
+                "strokeWidth": 2,
+                "strokeColor": "#008ACD"
+            },
+            "axisYTick": 2,
+            "axisYLabels": [],
+            "axisYLabelsStyle": {
+                "strokeWidth": 2,
+                "fillColor": "#008ACD"
+            },
+            "axisXLabels": [],
+            "axisXLabelsStyle": {
+                "fillColor": "#008ACD"
+            },
+            "useBackground": false,
+            "backgroundStyle": {
+                "fillColor": "#F3F3F3",
+                "fillOpacity": 0.5
+            },
+            "backgroundRadius": [5, 5, 5, 5]
+        },
+        "settingForPie": {
+            "width": 40,
+            "height": 40,
+            "XOffset":5,
+            "YOffset":-10,
+            "codomain": [0,1000],
+            "dataStyle": {
+                "fillOpacity": 0.8
+            },
+            "dataStyleByFields": [
+                {
+                    "fillColor": "#B0DC01",
+                    "labelPosition":"inside"
+                },
+                {
+                    "fillColor": "#FFAA01",
+                    "labelPosition":"inside"
+                },
+                {
+                    "fillColor": "#FFCE39",
+                    "labelPosition":"inside"
+                },
+                {
+                    "fillColor": "#FF0061",
+                    "labelPosition":"inside"
+                },
+                {
+                    "fillColor": "#23A255",
+                    "labelPosition":"inside"
+                }
+            ],
+            "dataHoverStyle": {
+                "fillOpacity": 1
+            }
+        }
+    },
+    "rex": {
+        "sum": "^.*率|\/|%|分比.*$",
+        "rate": "^.*万元|吨|立方米|平米|瓦|元|=|人|个|平方.*$|%"
+    }
+}

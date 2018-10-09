@@ -1,0 +1,26 @@
+#系统配置文件
+
+#可取值 debug info 0
+printmsg = 0
+
+#数据上传路径
+uploadFilePath = D:\\SuperMap\\
+
+#数据来源 local本地  remote api调用
+datasource = local
+
+
+#api调用地址
+   #获取数据类型
+API.report = http:
+   #获取维度信息
+API.dimension =http://data.stats.gov.cn/chinese/api_2.0/acmrdatashow/api_2.0/getweidulist?
+   #获取分类、指标信息
+API.iden = http://data.stats.gov.cn/chinese/api_2.0/acmrdatashow/api_2.0/getweidusubnodedatas?
+   #获取行政区规划信息
+API.region = http:
+   #获取数据
+API.data =http://data.stats.gov.cn/chinese/api_2.0/acmrdatashow/api_2.0/querydata?
+#http://data.stats.gov.cn/chinese/api_2.0/acmrdatashow/api_2.0/querydata? http://121.42.160.106/NationApi2.0/fsnd/theme?
+
+

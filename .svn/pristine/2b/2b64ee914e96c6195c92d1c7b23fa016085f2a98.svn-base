@@ -1,0 +1,12 @@
+【一】工程结构
+    1.后台
+    2.前段
+
+【二】用到的技术
+    1.后台：
+        SpringMVC、Hibernate
+        依赖管理：Maven
+    2.前段：
+        css编译工具：sass
+        代码模块化：seajs
+        基础库：jquery、semantic

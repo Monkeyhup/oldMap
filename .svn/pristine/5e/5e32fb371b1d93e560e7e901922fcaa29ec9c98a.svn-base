@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="x-ua-compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>用户反馈</title>
+    <link rel="shortcut icon" type="image/x-icon" href="assets/image/favicon.ico">
+    <script src="lib/jquery/jquery-1.11.3.min.js"></script>
+    <link rel="stylesheet" href="lib/semantic/semantic.min.css">
+
+    <style>
+        body{
+            overflow-x: hidden;
+        }
+
+    </style>
+</head>
+<body style="margin:10px">
+   <div class="container fluid">
+
+          <div class="row" style="text-align: center">
+              <h1>意见反馈</h1>
+          </div>
+          <div class="row">
+              <form class="ui form" id="fm" onsubmit="return false;">
+
+                  <div class="ui segment">
+                      <div class="field">
+                          <label>主题</label>
+                          <input type="text" name="theme" placeholder="主题">
+                      </div>
+                      <div class="field">
+                          <label>内容</label>
+                          <textarea name="content"></textarea>
+                      </div>
+
+                      <div class="field">
+                          <label>联系方式:</label>
+                      </div>
+                      <div class="inline field">
+                          <label>电话</label>
+                          <input type="text" name="phone" placeholder="电话">
+                      </div>
+                      <div class="inline field">
+                          <label>邮箱</label>
+                          <input type="text" name="email" placeholder="邮箱">
+                      </div>
+                  </div>
+
+                  <button id="btn-submit" style="float:right" class="ui button">提交</button>
+
+              </form>
+
+      </div>
+   </div>
+</body>
+<script src="lib/semantic/semantic.min.js"></script>
+<script src="module/feedback.js"></script>
+
+</html>

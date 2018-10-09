@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="x-ua-compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>数据地图</title>
+
+    <link rel="shortcut icon" type="image/x-icon" href="assets/image/favicon.ico">
+    <link rel="stylesheet" href="lib/jquery/jquery.mobile-1.4.5.min.css">
+
+    <link rel="stylesheet" href="lib/dhtmlx/dhtmlxgrid.css"/>
+    <link rel="stylesheet" href="lib/dhtmlx/skins/dhtmlxgrid_dhx_skyblue.css"/>
+    <link rel="stylesheet" href="lib/dhtmlx/skins/dhtmlxgrid_dhx_terrace.css"/>
+    <link rel="stylesheet" href="lib/dhtmlx/dhtmlxtree.css"/>
+
+
+    <link rel="stylesheet" href="page/sass/mobile.css">
+
+    <script src="lib/jquery/jquery-1.11.3.min.js"></script>
+    <script src="lib/jquery/jquery.mobile-1.4.5.js"></script>
+
+    <link rel="stylesheet" href="lib/semantic/semantic.min.css">
+    <link rel="stylesheet" href="lib/jquery/jquery.range.css">
+
+
+    <script type="text/javascript">
+        window.location.href = "m.html";  //TODO
+
+        var agent = navigator.userAgent.toLowerCase();
+        var ind = agent.indexOf("android");
+        var indip = agent.indexOf("iphone");
+        var indipad = agent.indexOf("ipad");
+        if (ind < 0 && indip <0 && indipad < 0) {
+//            window.location.href = "index.html";
+        }
+    </script>
+
+
+    <style>
+        #grid-container {
+            width: 100%;
+            -webkit-box-sizing: content-box;
+            -moz-box-sizing: content-box;
+            box-sizing: content-box;
+        }
+    </style>
+
+</head>
+<body>
+<div data-role="page" id="main-container">
+
+    <div data-role="content">
+        <div class="ui fixed menu topbar">
+            <div class="left menu">
+                <div class="item tag">
+                    <a href="#iden-panel">
+                        <img class="logo" src="assets/image/logo.png" style="height: 24px;"></a>
+                </div>
+
+                <div id="iden-content" class="item" style="cursor:pointer;">
+                    <i class="content icon"></i>
+                    指标
+                </div>
+
+                <div class="item loc" style="cursor: pointer;">
+                    <i class="location arrow icon"></i>
+                    中国
+                </div>
+
+                <div id="tm-set" class="item" style="cursor:pointer;">
+                    <i class="history icon"></i>
+                    时间
+                </div>
+
+                <div class="ui simple dropdown item">
+                    <i class="settings icon"></i>
+                    设置
+                    <div class="menu">
+                        <div class="item" id="tool-full">
+                            <i class="maximize icon"></i>全屏
+                        </div>
+                        <div class="item" id="tool-clear">
+                            <i class="recycle icon"></i>清除
+                        </div>
+                        <div class="item" id="tool-legend">
+                            <i class="icon flag"></i>图例
+                        </div>
+                        <div class="item" id="tool-col">
+                            <i class="icon theme"></i>地图颜色
+                        </div>
+                        <div class="item" id="tool-lbregion">
+                            <i class="icon unhide"></i>区划标签
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="right menu">
+                <div id="chart-control" class="item chart" style="display: none">
+                        <i class="grid layout icon"></i>
+                        图表
+                </div>
+            </div>
+        </div>
+
+
+        <div id="map-container" class="main container">
+        </div>
+
+        <!--地区选择面板 -->
+        <div id="region-panel" class="fl hide" >
+            <div class="ui pointing secondary menu blue move">
+                <a class="item active" data-tab="second">选择地区</a>
+                <a class="item" data-tab="first">选择区域</a>
+
+                <a id="close-regpan" class="item" style="position:absolute;right: 0px;">
+                    <i class="remove icon"></i>
+                </a>
+            </div>
+
+            <div class="ui tab active" data-tab="second">
+                <div id="regionset-tree" style="height: 200px;margin-bottom: 10px;">
+                    行政区划树
+                </div>
+                <div>
+                    <label>选中区域操作:</label>
+
+                    <div class="tiny ui buttons">
+                        <div id="regionset-btn-clear" class="ui black  basic   animated button" tabindex="0">
+                            <div class=" visible  content">清空</div>
+                            <div class=" hidden content">
+                                <i class="icon trash"></i>
+                            </div>
+                        </div>
+                        <div id="regionset-btn-location" class="ui black  basic  animated button" tabindex="0">
+                            <div class="visible content">确认</div>
+                            <div class="hidden  content">
+                                <i class="icon location arrow"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ui segment" id="regionset-list"
+                     style="height: 60px;margin-top: 10px;margin-right:10px;padding-bottom: 0; overflow-y: auto">
+                    <div class="ui circular labels hot">
+                        <!--<a class="ui label">全国</a>-->
+                    </div>
+                </div>
+            </div>
+            <div class="ui tab " data-tab="first">
+                <!--<div  class="ui circular labels hot" id="hotRegionInit">-->
+                    <!--{{#hotRegions}}-->
+                    <!--<a class="ui label"-->
+                       <!--data-region-code="{{regionCode}}" region-type="QH">{{regionName}}</a>-->
+                    <!--{{/hotRegions}}-->
+                <!--</div>-->
+
+                <div id="regionset-go-list" class="ui form" style="margin-top:10px; height: 270px; overflow-y: auto;">
+                    {{#regionList}}
+                    <div class="field inline">
+                        <a class="link" queryType="{{queryType}}" layerName="{{layerName}}" data-region-code="{{catalogCode}}"
+                           region-type="TS" style="color: #000000">{{catalog}}:</a>
+                        {{#regions}}
+                        <P>
+                            <a class="link" queryType="{{queryType}}" layerName="{{layerName}}"
+                               data-region-code="{{regionCode}}" region-type="QH">{{regionName}}</a>
+                        </P>
+                        {{/regions}}
+                    </div>
+                    {{/regionList}}
+                </div>
+            </div>
+        </div>
+
+
+        <div id="gc-panel" class="hide">
+            <div id="grid-panel" class="mobile grid-panel" style="border:0">
+                <div class="ui top attached tabular menu">
+                    <div class="item">数据表格</div>
+                    <!--<button class="ui button" id="btn-down" style="margin-bottom: 5px;margin-top: 5px">下载 </button>-->
+                    <div id="clo-gc" class="right item">
+                        <i class="large arrow right icon"></i>
+                    </div>
+                </div>
+                <div class="ui bottom attached tab  active">
+                    <div id="grid-container" class="container" style="overflow-x: hidden;width:100%;"></div>
+                </div>
+            </div>
+
+            <!-- chart  -->
+            <div id="chart-panel" class="mobile chart-panel" style="border:0">
+                <div class="ui top attached tabular menu">
+                    <div class="item" style="float:left">
+                        <select data-role="none">
+                            <!--<option value="">指标切换</option>-->
+                        </select>
+                    </div>
+                </div>
+                <div class="ui bottom attached tab active">
+                    <div id="chart-container" class="container" style="width:100%;"></div>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="indi-panel" class="hide">
+
+        </div>
+
+    </div>
+
+
+    <div data-role="panel" id="iden-panel" data-display="overlay" style="width:300px;opacity: 0.9">
+        <div class="ui action input" id="search-head" style="margin-left:10px;margin-top:5px;opacity:1;position: absolute;top:0px;">
+            <input id="input-iden" disabled type="text" placeholder="搜索指标..." data-role="none">
+            <button id="iden-query" class="ui icon button" data-role="none">
+                <i class="search icon"></i>
+            </button>
+
+            <!--<i class="angle double left"></i>-->
+
+        </div>
+        <div id="clo-iden" style="float:right;margin:5px;">
+            <i class="large arrow left icon"></i>
+        </div>
+
+        <div class="idens container" style="top:35px;height:70%;width:100%;position: absolute;">
+            <div class="ui text menu" style="margin-left:10px;margin-bottom:-15px;margin-top:5px;">
+                <a class="item link" id="select-title" title="查看维护已选指标">
+                    <i class="browser icon"></i><span>0指标</span>
+                </a>
+                <a class="item link" id="selection-operator-clear" title="清空所选指标">
+                    <i class="trash icon"></i><span>清空</span>
+                </a>
+                <a class="item link" id="selection-operator-all" title="全选">
+                    <i class="sort content ascending icon"></i>
+                    <span>全选</span>
+                </a>
+                <a class="item link" id="selection-operator-opposite" title="反选">
+                    <i class="sort content descending icon"></i>
+                    <span>反选</span>
+                </a>
+            </div>
+
+            <div id="iden-idens" class="ui clearfix" style="padding:0;border:0;height:100%;width:100%;display:-moz-box;display:-webkit-box;display:inline-flex;-moz-box-orient:horizontal;-webkit-box-orient:horizontal;box-orient:horizontal;">
+                <div class="pull-left" id="report" style="width:70px;-moz-box-flex:1;-webkit-box-flex:1;box-flex:1;">
+                    <div class="ui secondary vertical menu small teal" id="switcher-report">
+                        <a class="item active" data-value="1">经济普查</a>
+                    </div>
+                </div>
+
+                <div class="pull-left" id="sel-panel" data-role="none" style="overflow-y:scroll; width:100%;margin-left:5px;-moz-box-flex:6;-webkit-box-flex:6;box-flex:6;">  <!--style="overflow-x:hidden !important;overflow-y: auto"-->
+                    <div class="ui breadcrumb small" id="selection-bread">
+                    </div>
+                    <div id="sel-panel-idens" style="width:100%;">
+                        <div class="ui list" id="selection-items" style="margin:10px 0 10px 0">
+                            <a class="item" data-id="{{matmid}}"  data-variation="mini" data-content="{{content}}" reporttype="{{reportType}}" data-type="{{macmetaType}}">
+                                <i class="{{macmetaType != 3 ? 'folder' : 'flag outline'}} icon"></i>
+                                <span>{{idenName}}</span>
+                            </a>
+                        </div>
+                        <div class="ui list hide" id="iden-templet" style="margin:10px 0 10px 0">
+                            <div class="item"  data-id="{{matmid}}" data-variation="mini" data-content="{{content}}" reportType="{{reportType}}" data-type="3" data-code="{{idenCode}}">
+                                <i class="flag outline icon" style="margin-right: 0px;"></i>
+
+                                <div class="content">
+                                    <div class="description" style="font-size:0.9em;">{{idenName}}</div>
+                                    <a class="{{dirName == '' ? 'hide' : ''}}" data-id="{{dirId}}"
+                                       data-type="1">{{dirName}}/</a>
+                                    <a class="{{tableName == '' ? 'hide' : ''}}" data-id="{{tableId}}" data-type="2"
+                                       style="font-size:0.9em;">{{tableName}}/</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="query-btns" style="text-align: center; position: absolute;bottom: 2px;">
+            <div class="ui buttons" data-role="none" style="margin:0">
+                <button id="btn-do-seg" class="ui button one" data-role="none">分段</button>
+                <button id="btn-do-pie" class="ui button one" data-role="none">等级</button>
+                <button id="btn-do-group" class="ui button two" data-role="none">复合</button>
+            </div>
+
+            <div class="ui buttons" data-role="none" style="margin:1px">
+                <button id="btn-do-bing" class="ui button two three" data-role="none">饼图</button>
+                <button id="btn-do-zhu"  class="ui button two three" data-role="none">柱图</button>
+                <button id="btn-help"  class="ui button" data-role="none">
+                  <i class="help circle icon"></i>
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+   <div style="text-shadow: none;font-size: 0.8rem; position: fixed;bottom: 0;right: 5px;text-align:center;color: white">
+     数据来源：国家统计局数据库
+   </div>
+
+
+
+</div>
+</body>
+<script src="lib/semantic/semantic.min.js"></script>
+
+<script src="lib/dhtmlx/dhtmlxcommon.js"></script>
+<script src="lib/dhtmlx/dhtmlxgrid.js"></script>
+<script src="lib/dhtmlx/dhtmlxgridcell.js"></script>
+<script src="lib/dhtmlx/ext/dhtmlxgrid_drag.js"></script>
+<script src="lib/dhtmlx/dhtmlxtree.js"></script>
+
+<script src="lib/iclient/SuperMap.Include.js"></script>
+<script src="lib/echarts/echarts_component.js"></script>
+
+<script src="lib/seajs/sea.js"></script>
+<script src="lib/seajs/seajs-css.js"></script>
+<script src="lib/seajs/seajs-text.js"></script>
+<script src="lib/jquery/jquery.range-min.js"></script>
+
+<script src="page/base.js"></script>
+
+<script>
+    var baseurl = SGIS.BASE_URL + "/module";
+    seajs.config({
+        base: "./module",
+        map: [
+//                [".json",".json?t=" + new Date().getTime() ],
+//                [".js",".js?t="+ new Date().getTime()],
+//                [".css",".css?t=" + new Date().getTime()]
+        ]
+    });
+    seajs.use("mobile", function (main) {
+        main.init();
+    });
+
+</script>
+
+
+
+</html>

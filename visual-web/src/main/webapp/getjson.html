@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>获取json数据</title>
+    <script type="text/javascript" src="lib/jquery/jquery-1.11.3.min.js"></script>
+    <link rel="stylesheet" href="lib/semantic/semantic.min.css">
+    <script src="lib/semantic/semantic.min.js"></script>
+</head>
+<body>
+<div class="ui grid container" style="margin: 10px">
+    <div class="row">
+        <div class="column" style="text-align: center">
+            <h1 class="ui header">地图JSON数据工具</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="column">
+            <div class="ui message">
+                <h1 class="ui header">What is this</h1>
+                <p>这是一个地图json数据获取与转换工具。可以通过iServer服务获取json数据，并支持json压缩（平均压缩率40%）以及GeoJosn数据转换</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="column">
+            <div class="ui form segment">
+                <div class="field">
+                    <label>服务地址（地图服务地址）：</label>
+                    <input id="in_url" type="text" placeholder="地图服务地址" value="http://121.42.160.106:8090/iserver/services/map-CH/rest/maps/china">
+                </div>
+
+                <div class="inline field">
+                    <button id="parse-info" class="ui blue button">解析图层信息</button>
+                    <input id="lys-info" class="field fluid twelve  wide" type="text">
+                </div>
+
+                <div class="two fields">
+                    <div class="field">
+                        <label>数据集名：</label>
+                        <input id="in_dataset" type="text" value="ST_R_SN_无岛@China" placeholder="数据集@数据源">
+                    </div>
+                    <div class="field">
+                        <label>过滤条件：</label>
+                        <input id="in_filter" type="text" value="QH_CODE LIKE '41%'" placeholder="QH_CODE LIKE '11%'">
+                    </div>
+                </div>
+
+                <div style="text-align: center">
+                    <div class="ui blue large buttons">
+                        <button id="btn_ori" class="ui button">超图json</button>
+                        <div class="or"></div>
+                        <button id="btn_enc" class="ui button">压缩的超图json</button>
+                        <div class="or"></div>
+                        <button id="btn_enc_36" class="ui button">采取36进制压缩的超图json</button>
+                        <div class="or"></div>
+                        <button id="btn_geo" class="ui button">GeoJSON</button>
+                    </div>
+                    <button id="btn_compress" class="ui button">compress</button>
+                    <button id="btn_reset" class="ui button">还原</button>
+                    <button id="btn_reset_sm" class="ui button">还原超图</button>
+                    <button id="show_code" style="float: right;" class="ui blue button">查看解压代码</button>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+<div class="ui form">
+    <button id="btn-copy" class="ui teal button" style="float: right;">复制</button>
+    <div class="field">
+        <label>结果：</label>
+        <textarea style="height: 800px" id="area"></textarea>
+    </div>
+</div>
+
+
+<div class="ui big modal code">
+    <i class="close icon"></i>
+    <div class="header">解压源代码</div>
+    <div class="content" style="padding-top: 0">
+
+            <pre style="margin:0;overflow: auto">
+                <code class="code javascript">
+/**
+* 解码json文件
+* @param obj
+* @returns {*}
+*/
+var decodeJson = function (obj) {
+    if(!obj.encode || obj.encode=="done"){  //无需解码
+        return obj;
+    }
+    var feas = obj.features;
+    for(var i = 0,len = feas.length;i<span class="string"><</span>len;i++){
+        var fea = feas[i];
+        fea.fieldNames = obj.fields;
+        fea.geometry.center = arrToObj(fea.geometry.center,,obj.sys) ;
+        for(var j = 0,ll = fea.geometry.points.length;j<span class="string"><</span>ll;j++){
+           fea.geometry.points[j] = arrToObj(fea.geometry.points[j],obj.sys);
+        }
+    }
+    obj.encode = "done";
+    obj.sys = "done";
+    return obj;
+};
+
+var arrToObj = function (arr,sys) {
+    var y = arr[0];
+    var x = arr[1];
+    if(sys===true){
+        y = sysConvert(y);
+        x = sysConvert(x);
+    }
+    return {"y":y,"x":x};
+}
+
+/**
+* 36进制转10进制
+* @param num
+* @returns {*}
+*/
+var sysConvert = function (num) {
+    var dotIndex = (num + "").indexOf(".");
+    var leftN = num, rightN = 0;
+    if (dotIndex<span class="string"> > </span>0) {
+        leftN = (num + "").substring(0, dotIndex);
+        rightN = (num + "").substring(dotIndex + 1);
+        leftN =  parseInt(leftN, 36);
+        rightN = parseInt(rightN, 36);
+        num = leftN + "." + rightN;
+    } else {
+        num = parseInt(leftN, 36);
+    }
+    return num;
+}
+
+
+                </code>
+            </pre>
+
+
+
+
+    </div>
+</div>
+
+</body>
+<script type="text/javascript" src="compress.js"></script>
+
+
+<script type="text/javascript">
+
+    var getData = function (callback) {
+        var url = $("#in_url").val();
+        if(url==""){
+            alert("服务地址呢？");
+            return;
+        }
+
+        url += "/queryResults.json?returnPostAction=true&getMethodForm=true&returnContent=true"; // query服务地址
+        var dataset = $("#in_dataset").val();
+
+        if(dataset==""){
+            alert("数据集名字呢？");
+            return;
+        }
+        dataset = dataset.trim();
+
+        var filter = $("#in_filter").val();
+        var param = {
+            "queryMode": "SqlQuery",
+            "bounds": {
+                "leftBottom": {"x": 0, "y": 0},
+                "rightTop": {"x": 100, "y": 100}
+            },
+            "distance": 1,
+            "queryParameters": {
+                "queryParams": [
+                    {
+                        "attributeFilter": filter,
+                        "name": dataset
+                    }
+                ],
+                "startRecord": 0,
+                "expectCount": 100000000,               //返回全部数据
+                "networkType": "LINE",
+                "queryOption": "ATTRIBUTEANDGEOMETRY"
+            },
+            "keywords": "",
+            "spatialQueryMode": "INTERSECT"
+        };
+
+        $.post(url,JSON.stringify(param), function (re) {
+            var re = re.recordsets[0];
+            callback&&callback(re);
+//            re = filterRe(re);
+//            $("#tarea").val(JSON.stringify(re));
+        });
+    };
+
+
+    var getInfo = function () {
+        var url = $("#in_url").val();
+        var name = url.substring(url.lastIndexOf("/") + 1);
+        url += "/layers/"+ name + ".json" ; // http://localhost:8090/iserver/services/map-cx/rest/maps/China/layers/China.json
+        $.get(url, function (re) {
+            var subLayers = re.subLayers.layers;
+            var names="";
+            for(var i = 0,len = subLayers.length;i<len;i++){
+                var name = subLayers[i].name;
+                names += name + "    ";
+            }
+            $("#lys-info").val(names);
+        });
+    };
+
+    var downJsFile = function (filename,body) {
+        var url = "http://localhost/visdata/tool/down/js?filename="+filename;
+        var data = {body:body};
+        $.ajax({
+            url: url,
+            data: JSON.stringify(data),
+            method:"post",
+            contentType:"applocation/json"
+        }).done().
+        fail();
+
+
+    }
+
+    /**
+     * 压缩
+     * @param re
+     * @returns {{}}
+     */
+    var enCodeRe = function (re,sys) {
+        var reData = {};
+
+        var features = re.features;
+        var fieldCaptions = re.fieldCaptions;
+        var fieldTypes = re.fieldTypes;
+        var fields = re.fields;
+
+        var useFields = ["QH_NAME","QH_CODE"];
+
+        //处理features就够了
+        for (var i = 0, len = features.length; i < len; i++) {
+            var feature = features[i];
+            var ID = feature.id;
+            var fieldNames = feature.fieldNames;
+            var fieldValues = feature.fieldValues;
+            var geometry = feature.geometry;
+
+
+            delete geometry.style;
+
+            if(sys===true){
+                geometry.center = [sysConvert(geometry.center.y),sysConvert(geometry.center.x)];
+            }else{
+                geometry.center = [geometry.center.y,geometry.center.x];
+            }
+
+
+            var points = geometry.points;
+            var newPs = [];  //点对象转数组
+            for(var a = 0,ll = points.length;a<ll;a++){
+                if(sys===true){
+                    var arr = [sysConvert(points[a].y),sysConvert(points[a].x)];
+                }else{
+                    var arr = [points[a].y,points[a].x];
+                }
+                newPs.push(arr);
+            }
+            geometry.points  = newPs;
+
+            var newValues = []; //添加属性值
+            for(var a= 0,al = fieldNames.length;a<al;a++){
+                if(fieldNames[a]=="QH_CODE"){
+                    newValues[1] = fieldValues[a];
+                }else if(fieldNames[a]=="QH_NAME"){
+                    newValues[0] = fieldValues[a];
+                }
+            }
+            delete  feature.fieldNames;
+            feature.fieldValues = newValues;
+        }
+
+        reData.fields = useFields;
+        reData.features = features;
+        reData.encode = true;
+
+        if(sys===true){
+            reData.sys = true;    //进制转换了
+        }
+
+
+        return reData;
+    };
+
+    /**
+     * 进制转换
+     * @param num
+     */
+    var sysConvert = function (num) {
+       if($.isNumeric(num)) {
+           var dotIndex = (num+"").indexOf(".");
+           var leftN = num,rightN=0;
+           if(dotIndex>0){
+               leftN = (num+"").substring(0,dotIndex);
+               rightN = (num+"").substring(dotIndex+1);
+
+               leftN = parseInt(leftN).toString(36);
+               rightN = parseInt(rightN).toString(36);
+
+               num = leftN + "." + rightN;
+           }else{
+               num = parseInt(leftN).toString(36);
+           }
+          return num;
+       }else{
+           throw Error("Illegal parameter");
+       }
+    };
+
+    /**
+     * 转换成geojson格式
+     * @param json
+     * @returns {{type: string, features: Array}}
+     */
+    var convert2Geo = function (json) {
+        var objectJson = {
+            "type" : "FeatureCollection",
+            "features" : []
+        };
+
+        var array = json.features;
+        for ( var i = 0, lens = array.length; i < lens; i++) {
+            var features = {
+                "type": "Feature",
+                "properties": {
+                    "id": null,
+                    "name": null,
+                },
+                "geometry": {
+                    "type": "Polygon",
+                    "coordinates": [[]]
+                }
+            };
+            var geometry = array[i].geometry;
+            features.properties.id = geometry.id;
+            var lolatCenter = geometry.center;
+
+//            if (coordinateType == 1) {
+//                lolatCenter = toLonlat(geometry.center);
+//            }else if(coordinateType == 2){
+//                lolatCenter = toMercator(geometry.center);
+//            }
+
+
+            features.properties.name = array[i].fieldValues[4];
+            var point = geometry.points;
+            var pointsLens = point.length;
+            for (var number = 0; number < pointsLens; number++) {
+                var data = [];
+                var lonlat = point[number];
+
+//                if (coordinateType == 1) {
+//                    lolatCenter = toLonlat(geometry.center);
+//                }else if(coordinateType == 2){
+//                    lolatCenter = toMercator(geometry.center);
+//                }
+
+                data.push(lonlat.x);
+                data.push(lonlat.y);
+                features.geometry.coordinates[0].push(data);
+            }
+            objectJson.features.push(features);
+        }
+
+        return objectJson;
+    };
+
+    $(function () {
+
+        $("#btn_ori").click(function () {
+            $("#area").val();
+            getData(function (re) {
+                $("#area").val(JSON.stringify(re));
+            });
+        });
+        $("#btn_enc").click(function () {
+            $("#area").val();
+            getData(function (re) {
+                re = enCodeRe(re);
+                $("#area").val(JSON.stringify(re));
+            });
+        });
+
+        $("#btn_enc_36").click(function () {
+            $("#area").val();
+            getData(function (re) {
+                re = enCodeRe(re,true);
+                $("#area").val(JSON.stringify(re));
+
+
+                downJsFile("sn_00",JSON.stringify(re));
+
+            });
+        });
+
+        $("#btn_geo").click(function () {
+            $("#area").val();
+            getData(function (re) {
+                re = convert2Geo(re);
+                $("#area").val(JSON.stringify(re));
+            });
+        });
+
+
+        //复制
+        $("#btn-copy").click(function () {
+            var area=document.getElementById("area");
+            area.select();
+            document.execCommand("Copy"); // 执行浏览器复制命令
+            alert("已复制好了！");
+        });
+
+
+        /**
+         * 显示源码
+         */
+        $("#show_code").click(function () {
+            $('.code.modal').modal('show');
+        });
+
+        /**
+         * 解析地址 分析图层信息
+         */
+        $("#parse-info").click(function () {
+            $("#lys-info").val();
+            getInfo();
+        });
+
+
+        $("#btn_compress").click(function () {
+            $("#area").val("");
+
+            getData(function (re) {
+//                re =    convert2Geo(re);
+                re =Tool.compress(re);
+                $("#area").val(JSON.stringify(re));
+            });
+        });
+
+        $("#btn_reset").click(function (){
+            var a =  $("#area").val();
+
+            a = Tool.decode(eval("(" +  a + ")"));
+
+            $("#area").val(JSON.stringify(a));
+
+        });
+
+
+        $("#btn_reset_sm").click(function () {
+            var a =  $("#area").val();
+
+            a = Tool.toSMjson(eval("(" +  a + ")"));
+
+            $("#area").val(JSON.stringify(a));
+
+        });
+
+    });
+
+
+
+</script>
+
+</html>

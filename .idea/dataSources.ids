@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source name="permissionPersistenceUnit/Hibernate" uuid="70877a32-5065-4574-97e8-cf1e9f2cc132">
+    <database-info product="" version="" jdbc-version="" driver-name="" driver-version=""/>
+  </data-source>
+  <data-source name="permissionPersistenceUnit/Hibernate" uuid="b1aec09a-0275-4512-9ce5-54746d2c9a96">
+    <database-info product="" version="" jdbc-version="" driver-name="" driver-version=""/>
+  </data-source>
+</component>

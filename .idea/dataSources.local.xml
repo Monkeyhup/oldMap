@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="permissionPersistenceUnit/Hibernate" uuid="70877a32-5065-4574-97e8-cf1e9f2cc132">
+      <secret-storage>memory</secret-storage>
+    </data-source>
+    <data-source name="permissionPersistenceUnit/Hibernate" uuid="b1aec09a-0275-4512-9ce5-54746d2c9a96">
+      <secret-storage>memory</secret-storage>
+    </data-source>
+  </component>
+</project>

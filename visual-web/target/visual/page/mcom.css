@@ -1,0 +1,74 @@
+
+body {
+    font-family: "Helvetica Neue", Helvetica, Microsoft Yahei, Hiragino Sans GB, WenQuanYi Micro Hei, sans-serif;
+    margin: 0;
+    background-color: #ffffff;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+}
+
+/* 表单部分 */
+.input-primary {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+.input-primary:after {
+    content: " *";
+    color:red;
+}
+.form-two > .form-group {
+    width: 50%;
+    float: left;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.fm.hide{
+    display: none;
+}
+
+.grid-container {
+    width: 100%;
+    height: 400px;
+    margin-top: 15px;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+}
+
+.grid-container .objbox{
+    overflow-y:hidden;
+}
+
+/**
+*loading start
+*/
+.loading{
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: 0px;
+    z-index: 1000;
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    -ms-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+}
+.loading.dimmer{
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255,255,255,0.85);
+}
+.loading.dimmer .text{
+    position: absolute;
+    top: 45%;
+    left: 50%;
+}
+.loading.active{
+    display: block;
+}
+/**
+*loading end
+*/
+
+

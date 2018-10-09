@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" hash="2306290175">
+    <data-source source="LOCAL" name="permissionPersistenceUnit/Hibernate" uuid="70877a32-5065-4574-97e8-cf1e9f2cc132">
+      <driver-ref>oracle</driver-ref>
+      <auto-commit>false</auto-commit>
+      <jdbc-driver>oracle.jdbc.OracleDriver</jdbc-driver>
+      <jdbc-url>jdbc:oracle:thin:@//121.42.160.106:1521/ORCL</jdbc-url>
+      <libraries />
+    </data-source>
+    <data-source source="LOCAL" name="permissionPersistenceUnit/Hibernate" uuid="b1aec09a-0275-4512-9ce5-54746d2c9a96">
+      <driver-ref>oracle</driver-ref>
+      <auto-commit>false</auto-commit>
+      <jdbc-driver>oracle.jdbc.OracleDriver</jdbc-driver>
+      <jdbc-url>jdbc:oracle:thin:@//121.42.160.106:1521/ORCL</jdbc-url>
+      <libraries />
+    </data-source>
+  </component>
+</project>

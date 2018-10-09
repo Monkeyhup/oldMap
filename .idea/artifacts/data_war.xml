@@ -1,0 +1,15 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="data:war">
+    <output-path>$PROJECT_DIR$/visual-data/target</output-path>
+    <root id="archive" name="visdata.war">
+      <element id="artifact" artifact-name="data:war exploded" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="JPA 2.0-JPA 2.0" />
+          <element id="library" level="project" name="javax.persistence" />
+          <element id="file-copy" path="$PROJECT_DIR$/lib/mysql-connector-java-5.1.21.jar" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>
